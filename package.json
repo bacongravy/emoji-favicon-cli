@@ -33,6 +33,7 @@
   "dependencies": {
     "emoji-img": "^1.0.0",
     "meow": "^6.1.0",
+    "node-fetch": "^2.6.0",
     "png-to-ico": "^2.1.0"
   },
   "devDependencies": {

@@ -3,14 +3,28 @@
 const meow = require('meow');
 const engine = require('../src');
 
-const cli = meow(`
+const cli = meow(
+  `
     Usage
       $ emoji-favicon-cli <emoji-name> [<destination>]
  
+    Options
+      --provider <provider>  Choose the provider to get the image from.
+                             (github [default], webfx)
+  
     Examples
       $ emoji-favicon-cli tada
       $ emoji-favicon-cli ghost public
-`);
+`,
+  {
+    flags: {
+      provider: {
+        type: 'string',
+        default: 'github',
+      },
+    },
+  },
+);
 
 if (cli.input.length < 1) {
   console.error('ERROR: <emoji-name> argument is required');
@@ -22,4 +36,4 @@ if (cli.input.length > 2) {
   cli.showHelp();
 }
 
-engine.run(...cli.input);
+engine[cli.flags.provider](...cli.input);
