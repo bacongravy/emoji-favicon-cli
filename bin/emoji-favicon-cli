@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+const meow = require('meow');
+const engine = require('../src');
+
+const cli = meow(`
+    Usage
+      $ emoji-favicon-cli <emoji-name> [<destination>]
+ 
+    Examples
+      $ emoji-favicon-cli tada
+      $ emoji-favicon-cli ghost public
+`);
+
+if (cli.input.length < 1) {
+  console.error('ERROR: <emoji-name> argument is required');
+  cli.showHelp();
+}
+
+if (cli.input.length > 2) {
+  console.error('ERROR: Too many arguments');
+  cli.showHelp();
+}
+
+engine.run(...cli.input);
