@@ -12,6 +12,7 @@
   ],
   "author": "David Kramer <bacongravy@icloud.com>",
   "license": "ISC",
+  "keywords": ["emoji", "favicon", "cli"],
   "scripts": {
     "start": "node bin/emoji-favicon-cli",
     "test": "echo \"Error: no test specified\" && exit 1",
