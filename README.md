@@ -12,17 +12,21 @@ Image conversion provided by the [`png-to-ico` project](https://github.com/steam
 
 ## Usage
 
+Installation is not required, you can use `npx` to invoke the command:
+
 ```bash
-npx emoji-favicon-cli [<emoji-name>]
-                      [--provider <provider>]
-                      [--destination <destination>]
+npx emoji-favicon-cli [<emoji-name>] [-p <provider>] [-d <destination>]
 ```
 
-- Creates a file named `favicon.ico`.
-- If the emoji name is not provided then an interactive browser will be presented.
-- Default provider is `github`. Other available providers include: `iamcal`, `webfx`
-- Default destination is "`.`".
-- Some providers support multiple vendors. To specify a vendor join it to the provider name with a dot.
+The command has the following basic behavior:
+
+- Creates a file named `favicon.ico` at the destination.
+- Presents an interactive emoji browser if the the emoji name is not provided.
+- Uses `github` as the default provider. Other available providers include: `iamcal`, `webfx`
+- Uses `.` as the default destination.
+
+Some providers support multiple vendors. To specify a vendor join it to the provider name with a dot. If a vendor is not specified the provider default will be used.
+
 - The `iamcal` provider supports four vendors: `iamcal.apple`, `iamcal.facebook` (default), `iamcal.google`, `iamcal.twitter`
 
 ## Examples
