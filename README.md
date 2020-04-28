@@ -9,6 +9,7 @@ This tool does not include its own emoji images. Multiple image providers are su
 - `github`: [api](https://developer.github.com/v3/emojis/) and [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
 - `iamcal`: [project](https://github.com/iamcal/emoji-data) and [cheatsheet](http://unicodey.com/emoji-data/table.htm)
 - `webfx`: [project](https://github.com/rumkin/emoji-img) and [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
+- `biezhi`: [project](https://github.com/biezhi/emojis)
 
 Emoji names and keywords are provided by the [`emojilib` project](https://github.com/muan/emojilib).
 
