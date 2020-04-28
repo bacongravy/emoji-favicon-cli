@@ -26,7 +26,7 @@ const filterEmojis = (input) =>
 const searchEmoji = async (answers, input) =>
   filterEmojis(input).map(renderChoice);
 
-const interactive = async () =>
+module.exports = async () =>
   inquirer
     .prompt([
       {
@@ -38,5 +38,3 @@ const interactive = async () =>
     ])
     .then((answers) => answers.emoji)
     .then(parseChoice);
-
-module.exports = interactive;
