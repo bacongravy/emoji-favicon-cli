@@ -3,36 +3,36 @@
 const meow = require('meow');
 const engine = require('../src');
 
+/** @type {meow.AnyFlags} */
+const flags = {
+  provider: {
+    type: 'string',
+    alias: 'p',
+    default: 'github',
+  },
+  destination: {
+    type: 'string',
+    alias: 'd',
+    default: '.',
+  },
+};
+
 const cli = meow(
   `
   Usage
     $ emoji-favicon-cli [<emoji-name>]
 
   Options
-    --provider <provider>        Choose the provider to get the image from.
-                                 (Default: "github". Also: "webfx")
-    --destination <destination>  Choose the destination to save the image to.
-                                 (Default: ".")
+    --provider, -p     Provider to get the image from. (Default: "${flags.provider.default}")
+                       Allowed providers: "github", "iamcal", "webfx"
+    --destination, -d  Destination to save the image to. (Default: "${flags.destination.default}")
 
   Examples
     $ emoji-favicon-cli
     $ emoji-favicon-cli tada
     $ emoji-favicon-cli -d public ghost 
 `,
-  {
-    flags: {
-      provider: {
-        type: 'string',
-        alias: 'p',
-        default: 'github',
-      },
-      destination: {
-        type: 'string',
-        alias: 'd',
-        default: '.',
-      },
-    },
-  },
+  { flags },
 );
 
 const panic = (error) => {
@@ -40,6 +40,17 @@ const panic = (error) => {
   // eslint-disable-next-line no-process-exit
   process.exit(2);
 };
+
+const hasUnknownFlag = !Object.keys(cli.flags).every((flag) =>
+  Object.keys(flags).includes(flag),
+);
+
+if (hasUnknownFlag) {
+  const firstUnknownFlag = Object.keys(cli.flags).find(
+    (flag) => !Object.keys(flags).includes(flag),
+  );
+  panic(new Error(`Unknown option '${firstUnknownFlag}'.`));
+}
 
 if (cli.input.length > 1) {
   panic(new Error('Too many arguments.'));
