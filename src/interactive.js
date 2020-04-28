@@ -9,9 +9,18 @@ inquirer.registerPrompt(
 const renderChoice = (emoji) => `${emojis.lib[emoji].char} ${emoji}`;
 const parseChoice = (choice) => choice.split(' ')[1];
 
+const keywordsForEmoji = (emoji) => [emoji, ...emojis.lib[emoji].keywords];
+
+const allTermsMatchKeywords = (terms, keywords) =>
+  terms
+    .map((term) => keywords.findIndex((value) => value.includes(term)) !== -1)
+    .includes(false) === false;
+
 const filterEmojis = (input) =>
   input
-    ? emojis.ordered.filter((emoji) => emoji.includes(input)).sort()
+    ? emojis.ordered.filter((emoji) =>
+        allTermsMatchKeywords(input.split(' '), keywordsForEmoji(emoji)),
+      )
     : emojis.ordered;
 
 const searchEmoji = async (answers, input) =>
