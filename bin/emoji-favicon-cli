@@ -3,17 +3,19 @@
 const meow = require('meow');
 const engine = require('../src');
 
-/** @type {meow.AnyFlags} */
-const flags = {
-  provider: {
-    type: 'string',
-    alias: 'p',
-    default: 'github',
-  },
-  destination: {
-    type: 'string',
-    alias: 'd',
-    default: '.',
+/** @type {meow.Options} */
+const options = {
+  flags: {
+    provider: {
+      type: 'string',
+      alias: 'p',
+      default: 'github',
+    },
+    destination: {
+      type: 'string',
+      alias: 'd',
+      default: '.',
+    },
   },
 };
 
@@ -23,16 +25,16 @@ const cli = meow(
     $ emoji-favicon-cli [<emoji-name>]
 
   Options
-    --provider, -p     Provider to get the image from. (Default: "${flags.provider.default}")
+    --provider, -p     Provider to get the image from. (Default: "${options.flags.provider.default}")
                        Allowed providers: "github", "iamcal", "webfx"
-    --destination, -d  Destination to save the image to. (Default: "${flags.destination.default}")
+    --destination, -d  Destination to save the image to. (Default: "${options.flags.destination.default}")
 
   Examples
     $ emoji-favicon-cli
     $ emoji-favicon-cli tada
     $ emoji-favicon-cli -d public ghost 
 `,
-  { flags },
+  options,
 );
 
 const panic = (error) => {
@@ -42,12 +44,12 @@ const panic = (error) => {
 };
 
 const hasUnknownFlag = !Object.keys(cli.flags).every((flag) =>
-  Object.keys(flags).includes(flag),
+  Object.keys(options.flags).includes(flag),
 );
 
 if (hasUnknownFlag) {
   const firstUnknownFlag = Object.keys(cli.flags).find(
-    (flag) => !Object.keys(flags).includes(flag),
+    (flag) => !Object.keys(options.flags).includes(flag),
   );
   panic(new Error(`Unknown option '${firstUnknownFlag}'.`));
 }
@@ -56,7 +58,9 @@ if (cli.input.length > 1) {
   panic(new Error('Too many arguments.'));
 }
 
-const [provider, vendor] = cli.flags.provider.split('.');
+const [provider, vendor] = /** @type {String} */ (cli.flags.provider).split(
+  '.',
+);
 
 if (engine.providers[provider] === undefined) {
   panic(new Error(`Provider '${provider}' not found.`));
