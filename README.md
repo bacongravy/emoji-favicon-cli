@@ -1,14 +1,16 @@
 # emoji-favicon-cli
 
-A CLI tool to generate a `favicon.ico` file from an emoji name.
+A CLI tool to generate a `favicon.ico` file from an emoji name. Perfect for when you are spinning up a new project and need a favicon to get started. Faster and easier to use than the free online interactive favicon generators.
 
-Uses the emoji names and images from either:
+## Emoji providers
 
-- the [GitHub API](https://developer.github.com/v3/emojis/) (the default), or
-- the [`iamcal/emoji-data` project](https://github.com/iamcal/emoji-data)
-- the [WebFX Emoji Cheat Sheet project](https://github.com/WebpageFX/emoji-cheat-sheet.com), via the [`emoji-img` project](https://github.com/rumkin/emoji-img).
+This tool does not include its own emoji images. Multiple image providers are supported:
 
-Image conversion provided by the [`png-to-ico` project](https://github.com/steambap/png-to-ico). Emoji browsing provided by the [`emojilib` project](https://github.com/muan/emojilib).
+- `github`: [api](https://developer.github.com/v3/emojis/) and [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
+- `iamcal`: [project](https://github.com/iamcal/emoji-data) and [cheatsheet](http://unicodey.com/emoji-data/table.htm)
+- `webfx`: [project](https://github.com/rumkin/emoji-img) and [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
+
+Emoji names and keywords are provided by the [`emojilib` project](https://github.com/muan/emojilib).
 
 ## Usage
 
@@ -22,12 +24,12 @@ The command has the following basic behavior:
 
 - Creates a file named `favicon.ico` at the destination.
 - Presents an interactive emoji browser if the the emoji name is not provided.
-- Uses `github` as the default provider. Other available providers include: `iamcal`, `webfx`
+- Uses `github` as the default provider.
 - Uses `.` as the default destination.
 
 Some providers support multiple vendors. To specify a vendor join it to the provider name with a dot. If a vendor is not specified the provider default will be used.
 
-- The `iamcal` provider supports four vendors: `iamcal.apple`, `iamcal.facebook` (default), `iamcal.google`, `iamcal.twitter`
+- The `iamcal` provider supports four vendors: `iamcal.apple`, `iamcal.facebook`, `iamcal.google` (default), `iamcal.twitter`
 
 ## Examples
 
