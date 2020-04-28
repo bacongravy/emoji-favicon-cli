@@ -5,16 +5,17 @@ const engine = require('../src');
 
 const cli = meow(
   `
-    Usage
-      $ emoji-favicon-cli <emoji-name> [<destination>]
- 
-    Options
-      --provider <provider>  Choose the provider to get the image from.
-                             (github [default], webfx)
-  
-    Examples
-      $ emoji-favicon-cli tada
-      $ emoji-favicon-cli ghost public
+  Usage
+    $ emoji-favicon-cli [<emoji-name> [<destination>]]
+
+  Options
+    --provider <provider>  Choose the provider to get the image from.
+                            (github [default], webfx)
+
+  Examples
+    $ emoji-favicon-cli
+    $ emoji-favicon-cli tada
+    $ emoji-favicon-cli ghost public
 `,
   {
     flags: {
@@ -26,14 +27,15 @@ const cli = meow(
   },
 );
 
-if (cli.input.length < 1) {
-  console.error('ERROR: <emoji-name> argument is required');
-  cli.showHelp();
-}
-
 if (cli.input.length > 2) {
   console.error('ERROR: Too many arguments');
   cli.showHelp();
 }
 
-engine[cli.flags.provider](...cli.input);
+const getEmoji = async () =>
+  cli.input.length > 0 ? cli.input[0] : engine.interactive();
+
+const runEngine = async (emoji) =>
+  engine[cli.flags.provider](emoji, ...cli.input.slice(1));
+
+getEmoji().then(runEngine).catch(console.error);
