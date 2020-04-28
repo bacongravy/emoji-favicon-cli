@@ -10,7 +10,7 @@ const validateVendor = (vendor) => {
   if (validVendors.includes(vendor)) {
     return vendor;
   }
-  throw Error(`Invalid vendor '${vendor}'.`);
+  throw new Error(`Invalid vendor '${vendor}'.`);
 };
 
 module.exports = (emoji, path, vendor = 'google') =>

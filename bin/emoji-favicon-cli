@@ -42,13 +42,13 @@ const panic = (error) => {
 };
 
 if (cli.input.length > 1) {
-  panic(Error('Too many arguments.'));
+  panic(new Error('Too many arguments.'));
 }
 
 const [provider, vendor] = cli.flags.provider.split('.');
 
 if (engine.providers[provider] === undefined) {
-  panic(Error(`Provider '${provider}' not found.`));
+  panic(new Error(`Provider '${provider}' not found.`));
 }
 
 const getEmoji = async () =>
