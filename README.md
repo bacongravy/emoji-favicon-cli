@@ -12,8 +12,9 @@ Image conversion provided by the [`png-to-ico` project](https://github.com/steam
 ## Usage
 
 ```bash
-npx emoji-favicon-cli [--provider <provider>]
-                      [<emoji-name> [<destination>]]
+npx emoji-favicon-cli [<emoji-name>]
+                      [--provider <provider>]
+                      [--destination <destination>]
 ```
 
 - Creates a file named `favicon.ico`.
@@ -26,7 +27,7 @@ npx emoji-favicon-cli [--provider <provider>]
 ```bash
 npx emoji-favicon-cli
 npx emoji-favicon-cli tada
-npx emoji-favicon-cli ghost public
+npx emoji-favicon-cli -d public ghost
 npx emoji-favicon-cli --provider webfx sunglasses
 ```
 

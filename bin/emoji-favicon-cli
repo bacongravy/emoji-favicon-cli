@@ -6,36 +6,56 @@ const engine = require('../src');
 const cli = meow(
   `
   Usage
-    $ emoji-favicon-cli [<emoji-name> [<destination>]]
+    $ emoji-favicon-cli [<emoji-name>]
 
   Options
-    --provider <provider>  Choose the provider to get the image from.
-                            (github [default], webfx)
+    --provider <provider>        Choose the provider to get the image from.
+                                 (Default: "github". Also: "webfx")
+    --destination <destination>  Choose the destination to save the image to.
+                                 (Default: ".")
 
   Examples
     $ emoji-favicon-cli
     $ emoji-favicon-cli tada
-    $ emoji-favicon-cli ghost public
+    $ emoji-favicon-cli -d public ghost 
 `,
   {
     flags: {
       provider: {
         type: 'string',
+        alias: 'p',
         default: 'github',
+      },
+      destination: {
+        type: 'string',
+        alias: 'd',
+        default: '.',
       },
     },
   },
 );
 
-if (cli.input.length > 2) {
-  console.error('ERROR: Too many arguments');
-  cli.showHelp();
+const panic = (message) => {
+  console.error('ERROR:', message);
+  // eslint-disable-next-line no-process-exit
+  process.exit(2);
+};
+
+if (cli.input.length > 1) {
+  panic('Too many arguments.');
+}
+
+if (engine.providers[cli.flags.provider] === undefined) {
+  panic(`Provider '${cli.flags.provider}' not found.`);
 }
 
 const getEmoji = async () =>
   cli.input.length > 0 ? cli.input[0] : engine.interactive();
 
 const runEngine = async (emoji) =>
-  engine[cli.flags.provider](emoji, ...cli.input.slice(1));
+  engine.providers[cli.flags.provider](
+    emoji,
+    `${cli.flags.destination}/favicon.ico`,
+  );
 
-getEmoji().then(runEngine).catch(console.error);
+getEmoji().then(runEngine).catch(panic);
