@@ -47,6 +47,7 @@ const validateVendor = async (vendor, validVendors) => {
 };
 
 module.exports = {
+  convertToIco,
   charForEmoji,
   unicodeFilenameForEmoji,
   writeTo,

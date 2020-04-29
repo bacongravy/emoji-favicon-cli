@@ -1,6 +1,6 @@
 const emojis = require('emoji-img');
-const convertToIco = require('png-to-ico');
-const { writeTo } = require('../util');
+const fs = require('fs');
+const { convertToIco, writeTo } = require('../util');
 
 const get = async (emoji) => emojis.get(emoji);
 
@@ -10,4 +10,8 @@ const validate = (path) => {
 };
 
 module.exports = (emoji, path) =>
-  get(emoji).then(validate).then(convertToIco).then(writeTo(path));
+  get(emoji)
+    .then(validate)
+    .then(fs.readFileSync)
+    .then(convertToIco)
+    .then(writeTo(path));
