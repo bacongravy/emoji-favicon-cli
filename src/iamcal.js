@@ -1,13 +1,11 @@
 const fetch = require('node-fetch').default;
-const fs = require('fs');
 const convertToIco = require('png-to-ico');
+const { getBuffer, getJson, writeTo } = require('./util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/iamcal/emoji-data@5.0.1';
 
 const validVendors = ['apple', 'facebook', 'google', 'twitter'];
 const defaultVendor = 'google';
-
-const getJson = (res) => res.json();
 
 const find = (emoji) => (data) =>
   data.find((item) => item.short_name === emoji);
@@ -22,10 +20,6 @@ const generateUrlFor = (vendor) => (item) => {
     throw new Error(`Vendor '${vendor}' not found.`);
   return `${projectUrl}/img-${vendor}-64/${item.image}`;
 };
-
-const getBuffer = (res) => res.buffer();
-
-const writeTo = (path) => (buf) => fs.writeFileSync(path, buf);
 
 module.exports = (emoji, path, vendor = defaultVendor) =>
   fetch(`${projectUrl}/emoji.json`)
