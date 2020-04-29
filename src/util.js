@@ -5,6 +5,7 @@ const { Ico, IcoImage } = require('@fiahfy/ico');
 
 const convertToIco = (buf) => {
   const ico = new Ico();
+  Ico.supportedIconSizes.push(72);
   ico.append(IcoImage.fromPNG(buf));
   return ico.data;
 };
