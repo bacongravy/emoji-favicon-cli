@@ -1,10 +1,8 @@
-const fetch = require('node-fetch').default;
-const convertToIco = require('png-to-ico');
 const {
   charForEmoji,
   unicodeFilenameForEmoji,
-  getBuffer,
-  writeTo,
+  fetchConvertAndWriteTo,
+  validateVendor,
 } = require('./util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/bruceCzK/Emojiii@master';
@@ -21,21 +19,12 @@ const validVendors = [
 
 const defaultVendor = 'google';
 
-const urlFor = (emoji, vendor) => {
+const generateUrl = (emoji, vendor) => () => {
   if (!charForEmoji(emoji)) throw new Error('Emoji not found');
-  if (!validVendors.includes(vendor))
-    throw new Error(`Vendor '${vendor}' not found.`);
   return `${projectUrl}/images/${vendor}/${unicodeFilenameForEmoji(emoji)}`;
 };
 
-const validate = (res) => {
-  if (res.status !== 200) throw new Error('Emoji not found');
-  return res;
-};
-
 module.exports = (emoji, path, vendor = defaultVendor) =>
-  fetch(urlFor(emoji, vendor))
-    .then(validate)
-    .then(getBuffer)
-    .then(convertToIco)
-    .then(writeTo(path));
+  validateVendor(vendor, validVendors)
+    .then(generateUrl(emoji, vendor))
+    .then(fetchConvertAndWriteTo(path));

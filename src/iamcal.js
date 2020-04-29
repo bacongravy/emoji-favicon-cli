@@ -1,11 +1,9 @@
-const fetch = require('node-fetch').default;
-const convertToIco = require('png-to-ico');
 const {
   charForEmoji,
   unicodeFilenameForEmoji,
-  getBuffer,
-  getJson,
-  writeTo,
+  fetchJson,
+  fetchConvertAndWriteTo,
+  validateVendor,
 } = require('./util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/iamcal/emoji-data@5.0.1';
@@ -13,12 +11,7 @@ const projectUrl = 'https://cdn.jsdelivr.net/gh/iamcal/emoji-data@5.0.1';
 const validVendors = ['apple', 'facebook', 'google', 'twitter'];
 const defaultVendor = 'google';
 
-const checkVendor = async (vendor) => {
-  if (!validVendors.includes(vendor))
-    throw new Error(`Vendor '${vendor}' not found.`);
-};
-
-const fetchEmojiIndex = () => fetch(`${projectUrl}/emoji.json`).then(getJson);
+const fetchEmojiIndex = () => fetchJson(`${projectUrl}/emoji.json`);
 
 const generateUrl = (emoji, vendor) => (index) => {
   const item = index.find((element) => element.short_name === emoji);
@@ -33,17 +26,8 @@ const generateUrl = (emoji, vendor) => (index) => {
   return `${projectUrl}/img-${vendor}-64/${filename}`;
 };
 
-const validate = (res) => {
-  if (res.status !== 200) throw new Error('Emoji not found');
-  return res;
-};
-
 module.exports = (emoji, path, vendor = defaultVendor) =>
-  checkVendor(vendor)
+  validateVendor(vendor, validVendors)
     .then(fetchEmojiIndex)
     .then(generateUrl(emoji, vendor))
-    .then(fetch)
-    .then(validate)
-    .then(getBuffer)
-    .then(convertToIco)
-    .then(writeTo(path));
+    .then(fetchConvertAndWriteTo(path));
