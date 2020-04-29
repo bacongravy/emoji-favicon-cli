@@ -8,6 +8,7 @@ This tool does not include its own emoji images. Multiple image providers are su
 
 - `github`: [api](https://developer.github.com/v3/emojis/) and [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
 - `iamcal`: [project](https://github.com/iamcal/emoji-data) and [cheatsheet](http://unicodey.com/emoji-data/table.htm)
+- `emojiii`: [project](https://github.com/bruceCzK/Emojiii/) and [cheatsheet](http://unicode.org/emoji/charts/full-emoji-list.html)
 - `webfx`: [project](https://github.com/rumkin/emoji-img) and [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 - `biezhi`: [project](https://github.com/biezhi/emojis)
 
@@ -28,9 +29,10 @@ The command has the following basic behavior:
 - Uses `github` as the default provider.
 - Uses `.` as the default destination.
 
-Some providers support multiple vendors. To specify a vendor join it to the provider name with a dot. If a vendor is not specified the provider default will be used.
+Some providers support returning images from multiple vendors. To choose a specific vendor append its name to the provider name with a dot, e,g. `emojiii.apple`. If a vendor is not specified the default vendor for the provider is used.
 
-- The `iamcal` provider supports four vendors: `iamcal.apple`, `iamcal.facebook`, `iamcal.google` (default), `iamcal.twitter`
+- The `iamcal` provider supports: `apple`, `facebook`, `google` (default), `twitter`
+- The `emojiii` provider supports: `apple`, `facebook`, `google` (default), `joy-pixels`, `samsung`, `twitter`, `windows`
 
 ## Examples
 
