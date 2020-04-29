@@ -26,7 +26,7 @@ The command has the following basic behavior:
 
 - Creates a file named `favicon.ico` at the destination.
 - Presents an interactive emoji browser if the the emoji name is not provided.
-- Uses `github` as the default provider.
+- Uses `iamcal` as the default provider.
 - Uses `.` as the default destination.
 
 Some providers support returning images from multiple different vendors. To choose a specific vendor append its name to the provider name with a dot, e,g. `emojiii.apple`. If a vendor is not specified then the default vendor for the provider is used.
@@ -39,7 +39,7 @@ Some providers support returning images from multiple different vendors. To choo
 ```bash
 npx emoji-favicon-cli
 npx emoji-favicon-cli tada
-npx emoji-favicon-cli -p iamcal.apple sunglasses
+npx emoji-favicon-cli -p emojiii.apple sunglasses
 npx emoji-favicon-cli -d public ghost
 ```
 

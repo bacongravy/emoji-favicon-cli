@@ -9,7 +9,7 @@ const options = {
     provider: {
       type: 'string',
       alias: 'p',
-      default: 'github',
+      default: 'iamcal',
     },
     destination: {
       type: 'string',
