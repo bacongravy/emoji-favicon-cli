@@ -1,7 +1,13 @@
 const emojis = require('emojilib');
 const fs = require('fs');
 const fetch = require('node-fetch').default;
-const convertToIco = require('png-to-ico');
+const { Ico, IcoImage } = require('@fiahfy/ico');
+
+const convertToIco = (buf) => {
+  const ico = new Ico();
+  ico.append(IcoImage.fromPNG(buf));
+  return ico.data;
+};
 
 const charForEmoji = (emoji) =>
   emojis.lib[emoji] ? emojis.lib[emoji].char : undefined;

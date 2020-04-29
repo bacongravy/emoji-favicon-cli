@@ -31,13 +31,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@fiahfy/ico": "0.0.4",
     "emoji-img": "^1.0.0",
     "emojilib": "^2.4.0",
     "inquirer": "^7.1.0",
     "inquirer-autocomplete-prompt": "^1.0.2",
     "meow": "^6.1.0",
-    "node-fetch": "^2.6.0",
-    "png-to-ico": "^2.1.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
