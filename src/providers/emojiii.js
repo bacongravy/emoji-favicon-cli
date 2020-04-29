@@ -3,7 +3,7 @@ const {
   unicodeFilenameForEmoji,
   fetchConvertAndWriteTo,
   validateVendor,
-} = require('./util');
+} = require('../util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/bruceCzK/Emojiii@master';
 

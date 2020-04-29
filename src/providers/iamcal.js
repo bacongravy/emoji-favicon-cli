@@ -4,7 +4,7 @@ const {
   fetchJson,
   fetchConvertAndWriteTo,
   validateVendor,
-} = require('./util');
+} = require('../util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/iamcal/emoji-data@5.0.1';
 

@@ -1,4 +1,4 @@
-const { fetchJson, fetchConvertAndWriteTo } = require('./util');
+const { fetchJson, fetchConvertAndWriteTo } = require('../util');
 
 const fetchEmojiIndex = async () => fetchJson('https://api.github.com/emojis');
 

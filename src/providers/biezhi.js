@@ -1,4 +1,4 @@
-const { fetchConvertAndWriteTo } = require('./util');
+const { fetchConvertAndWriteTo } = require('../util');
 
 const projectUrl = 'https://cdn.jsdelivr.net/gh/biezhi/emojis';
 
