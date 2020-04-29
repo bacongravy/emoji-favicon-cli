@@ -4,15 +4,15 @@ A CLI tool to generate a `favicon.ico` file from an emoji name. Perfect for when
 
 ## Emoji providers
 
-This tool does not include its own emoji images. Multiple image providers are supported:
+This package does not include its own emoji images. Multiple image providers are supported:
 
-- `github`: [api](https://developer.github.com/v3/emojis/) and [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
-- `iamcal`: [project](https://github.com/iamcal/emoji-data) and [cheatsheet](http://unicodey.com/emoji-data/table.htm)
-- `emojiii`: [project](https://github.com/bruceCzK/Emojiii/) and [cheatsheet](http://unicode.org/emoji/charts/full-emoji-list.html)
-- `webfx`: [project](https://github.com/rumkin/emoji-img) and [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 - `biezhi`: [project](https://github.com/biezhi/emojis)
+- `emojiii`: [project](https://github.com/bruceCzK/Emojiii/), [cheatsheet](http://unicode.org/emoji/charts/full-emoji-list.html)
+- `github`: [api](https://developer.github.com/v3/emojis/), [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
+- `iamcal`: [project](https://github.com/iamcal/emoji-data), [cheatsheet](http://unicodey.com/emoji-data/table.htm)
+- `webfx`: [project](https://github.com/rumkin/emoji-img), [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 
-Emoji names and keywords are provided by the [`emojilib` project](https://github.com/muan/emojilib).
+Interactive emoji browsing is provided by [`emojilib`](https://github.com/muan/emojilib). Not every provider has every emoji, and some providers have additional emojis not found in `emojilib`. The `webfx` provider is available offline in `node_modules`; all other providers require network access.
 
 ## Usage
 
@@ -29,7 +29,7 @@ The command has the following basic behavior:
 - Uses `github` as the default provider.
 - Uses `.` as the default destination.
 
-Some providers support returning images from multiple vendors. To choose a specific vendor append its name to the provider name with a dot, e,g. `emojiii.apple`. If a vendor is not specified the default vendor for the provider is used.
+Some providers support returning images from multiple different vendors. To choose a specific vendor append its name to the provider name with a dot, e,g. `emojiii.apple`. If a vendor is not specified then the default vendor for the provider is used.
 
 - The `iamcal` provider supports: `apple`, `facebook`, `google` (default), `twitter`
 - The `emojiii` provider supports: `apple`, `facebook`, `google` (default), `joy-pixels`, `samsung`, `twitter`, `windows`
