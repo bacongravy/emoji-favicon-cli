@@ -33,11 +33,17 @@ const generateUrl = (emoji, vendor) => (index) => {
   return `${projectUrl}/img-${vendor}-64/${filename}`;
 };
 
+const validate = (res) => {
+  if (res.status !== 200) throw new Error('Emoji not found');
+  return res;
+};
+
 module.exports = (emoji, path, vendor = defaultVendor) =>
   checkVendor(vendor)
     .then(fetchEmojiIndex)
     .then(generateUrl(emoji, vendor))
     .then(fetch)
+    .then(validate)
     .then(getBuffer)
     .then(convertToIco)
     .then(writeTo(path));
