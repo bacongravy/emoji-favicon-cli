@@ -1,13 +1,10 @@
 const emojis = require('emojilib');
-const inquirer = require('inquirer');
+const { UnstyledAutoComplete } = require('./unstyled-auto-complete');
 
-inquirer.registerPrompt(
-  'autocomplete',
-  require('inquirer-autocomplete-prompt'),
-);
-
-const renderChoice = (emoji) => `${emojis.lib[emoji].char} ${emoji}`;
-const parseChoice = (choice) => choice.split(' ')[1];
+const choiceForEmoji = (emoji) => ({
+  message: `${emojis.lib[emoji].char} ${emoji}`,
+  value: emoji,
+});
 
 const keywordsForEmoji = (emoji) => [emoji, ...emojis.lib[emoji].keywords];
 
@@ -16,25 +13,18 @@ const allTermsMatchKeywords = (terms, keywords) =>
     .map((term) => keywords.findIndex((value) => value.includes(term)) !== -1)
     .includes(false) === false;
 
-const filterEmojis = (input) =>
-  input
-    ? emojis.ordered.filter((emoji) =>
-        allTermsMatchKeywords(input.split(' '), keywordsForEmoji(emoji)),
-      )
-    : emojis.ordered;
+const filterEmojiChoices = (input, choices) =>
+  choices.filter((choice) =>
+    allTermsMatchKeywords(input.split(' '), keywordsForEmoji(choice.value)),
+  );
 
-const searchEmoji = async (answers, input) =>
-  filterEmojis(input).map(renderChoice);
+const getEmojiChoices = () => emojis.ordered.map(choiceForEmoji);
 
-module.exports = async () =>
-  inquirer
-    .prompt([
-      {
-        type: 'autocomplete',
-        name: 'emoji',
-        message: 'Which emoji do you want to use?',
-        source: searchEmoji,
-      },
-    ])
-    .then((answers) => answers.emoji)
-    .then(parseChoice);
+const prompt = new UnstyledAutoComplete({
+  name: 'emoji',
+  message: 'Which emoji do you want to use?',
+  choices: getEmojiChoices,
+  suggest: filterEmojiChoices,
+});
+
+module.exports = async () => prompt.run();
