@@ -5,7 +5,7 @@ const {
   validateVendor,
 } = require('../util');
 
-const projectUrl = 'https://cdn.jsdelivr.net/gh/bruceCzK/Emojiii@master';
+const projectUrl = 'https://cdn.jsdelivr.net/gh/bruceCzK/Emojiii@0.4.0';
 
 const validVendors = [
   'apple',
