@@ -1,17 +1,8 @@
-const emojis = require('emoji-img');
-const fs = require('fs');
-const { convertToIco, writeTo } = require('../util');
+const { fetchConvertAndWriteTo } = require('../util');
 
-const get = async (emoji) => emojis.get(emoji);
+const projectUrl = 'https://cdn.jsdelivr.net/gh/rumkin/emoji-img@master';
 
-const validate = (path) => {
-  if (path === undefined) throw new Error('Emoji not found');
-  return path;
-};
+const generateUrl = async (emoji) => `${projectUrl}/emojis/${emoji}.png`;
 
 module.exports = (emoji, path) =>
-  get(emoji)
-    .then(validate)
-    .then(fs.readFileSync)
-    .then(convertToIco)
-    .then(writeTo(path));
+  generateUrl(emoji).then(fetchConvertAndWriteTo(path));

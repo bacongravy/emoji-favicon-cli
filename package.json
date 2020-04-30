@@ -32,7 +32,6 @@
   },
   "dependencies": {
     "@fiahfy/ico": "0.0.4",
-    "emoji-img": "^1.0.0",
     "emojilib": "^2.4.0",
     "enquirer": "^2.3.5",
     "meow": "^6.1.0",

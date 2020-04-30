@@ -12,7 +12,7 @@ This package does not include its own emoji images. Multiple image providers are
 - `iamcal`: [project](https://github.com/iamcal/emoji-data), [cheatsheet](http://unicodey.com/emoji-data/table.htm)
 - `webfx`: [project](https://github.com/rumkin/emoji-img), [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 
-Interactive emoji browsing is provided by [`emojilib`](https://github.com/muan/emojilib). Not every provider has every emoji, and some providers have additional emojis not found in `emojilib`. The `webfx` provider is available offline in `node_modules`; all other providers require network access.
+Interactive emoji browsing is provided by [`emojilib`](https://github.com/muan/emojilib). Not every provider has every emoji, and some providers have additional emojis not found in `emojilib`. Image asset hosting provided by the [JSDelivr](https://www.jsdelivr.com) CDN.
 
 ## Usage
 
