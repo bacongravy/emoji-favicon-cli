@@ -5,6 +5,7 @@ const {
   validateVendor,
 } = require('../util');
 
+// last updated 2020-04-28
 const projectUrl = 'https://cdn.jsdelivr.net/gh/bruceCzK/Emojiii@0.4.0';
 
 const validVendors = [

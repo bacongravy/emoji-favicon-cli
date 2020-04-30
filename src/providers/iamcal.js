@@ -6,6 +6,7 @@ const {
   validateVendor,
 } = require('../util');
 
+// last updated 2020-01-14
 const projectUrl = 'https://cdn.jsdelivr.net/gh/iamcal/emoji-data@5.0.1';
 
 const validVendors = ['apple', 'facebook', 'google', 'twitter'];
