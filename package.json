@@ -28,7 +28,10 @@
     "lint:check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "lint:fix": "eslint src --fix --color",
     "start": "node bin/emoji-favicon-cli",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "version:major": "npm version major -m 'bump version for release (v%s)'",
+    "version:minor": "npm version minor -m 'bump version for release (v%s)'",
+    "version:patch": "npm version patch -m 'bump version for release (v%s)'"
   },
   "dependencies": {
     "@fiahfy/ico": "0.0.4",
