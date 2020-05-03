@@ -1,5 +1,4 @@
 const emojis = require('emojilib');
-const fs = require('fs');
 const fetch = require('node-fetch').default;
 const { Ico, IcoImage } = require('@fiahfy/ico');
 
@@ -26,8 +25,6 @@ const getBuffer = (res) => res.buffer();
 
 const getJson = (res) => res.json();
 
-const writeTo = (path) => (buf) => fs.writeFileSync(path, buf);
-
 const validateResponse = (res) => {
   if (res.status !== 200) throw new Error('Emoji not found');
   return res;
@@ -35,24 +32,12 @@ const validateResponse = (res) => {
 
 const fetchJson = (url) => fetch(url).then(getJson);
 
-const fetchConvertAndWriteTo = (path) => (url) =>
-  fetch(url)
-    .then(validateResponse)
-    .then(getBuffer)
-    .then(convertToIco)
-    .then(writeTo(path));
-
-const validateVendor = async (vendor, validVendors) => {
-  if (!validVendors.includes(vendor))
-    throw new Error(`Vendor '${vendor}' not found.`);
-};
+const fetchAndConvert = async (url) =>
+  fetch(url).then(validateResponse).then(getBuffer).then(convertToIco);
 
 module.exports = {
-  convertToIco,
   charForEmoji,
   unicodeFilenameForEmoji,
-  writeTo,
   fetchJson,
-  fetchConvertAndWriteTo,
-  validateVendor,
+  fetchAndConvert,
 };

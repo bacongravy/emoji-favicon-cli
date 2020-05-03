@@ -1,12 +1,9 @@
-const { fetchJson, fetchConvertAndWriteTo } = require('../util');
+const { fetchJson } = require('../util');
 
-const fetchEmojiIndex = async () => fetchJson('https://api.github.com/emojis');
+const apiUrl = 'https://api.github.com/emojis';
 
-const generateUrl = (emoji) => (data) => {
-  const url = data[emoji];
-  if (url === undefined) throw new Error('Emoji not found');
-  return url;
-};
+const vendors = ['github'];
 
-module.exports = (emoji, path) =>
-  fetchEmojiIndex().then(generateUrl(emoji)).then(fetchConvertAndWriteTo(path));
+const getUrl = async (emoji) => fetchJson(apiUrl).then((data) => data[emoji]);
+
+module.exports = { getUrl, vendors };

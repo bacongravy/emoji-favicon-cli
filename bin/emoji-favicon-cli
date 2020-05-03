@@ -1,16 +1,12 @@
 #!/usr/bin/env node
 
+const fs = require('fs');
 const meow = require('meow');
 const engine = require('../src');
 
 /** @type {meow.Options} */
 const options = {
   flags: {
-    provider: {
-      type: 'string',
-      alias: 'p',
-      default: 'iamcal',
-    },
     destination: {
       type: 'string',
       alias: 'd',
@@ -21,6 +17,11 @@ const options = {
       alias: 'h',
       default: false,
     },
+    vendor: {
+      type: 'string',
+      alias: 'v',
+      default: 'google',
+    },
   },
 };
 
@@ -30,14 +31,14 @@ const cli = meow(
     $ emoji-favicon-cli [<emoji-name>]
 
   Options
-    --provider, -p     Provider to get the image from. (Default: "${options.flags.provider.default}")
-                       Allowed providers: "github", "iamcal", "webfx"
+    --vendor, -v       Vendor to get the image from. (Default: "${options.flags.vendor.default}")
     --destination, -d  Destination to save the image to. (Default: "${options.flags.destination.default}")
 
   Examples
     $ emoji-favicon-cli
     $ emoji-favicon-cli tada
-    $ emoji-favicon-cli -d public ghost 
+    $ emoji-favicon-cli -v apple dancer
+    $ emoji-favicon-cli -v twitter -d public ghost 
 `,
   options,
 );
@@ -63,22 +64,17 @@ if (cli.input.length > 1) {
   panic(new Error('Too many arguments.'));
 }
 
-const [provider, vendor] = /** @type {String} */ (cli.flags.provider).split(
-  '.',
-);
-
-if (engine.providers[provider] === undefined) {
-  panic(new Error(`Provider '${provider}' not found.`));
+if (!engine.vendors.includes(/** @type{string} */ (cli.flags.vendor))) {
+  panic(new Error(`Invalid vendor '${cli.flags.vendor}'.`));
 }
 
-const getEmoji = async () =>
+const getInput = async () =>
   cli.input.length > 0 ? cli.input[0] : engine.interactive();
 
-const runEngine = async (emoji) =>
-  engine.providers[provider](
-    emoji,
-    `${cli.flags.destination}/favicon.ico`,
-    vendor,
-  );
+const writeToDestination = async (buf) =>
+  fs.writeFileSync(`${cli.flags.destination}/favicon.ico`, buf);
 
-getEmoji().then(runEngine).catch(panic);
+const runEngine = async (emoji) =>
+  engine.getFavicon(emoji, cli.flags.vendor).then(writeToDestination);
+
+getInput().then(runEngine).catch(panic);
