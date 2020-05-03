@@ -16,6 +16,11 @@ const options = {
       alias: 'd',
       default: '.',
     },
+    help: {
+      type: 'boolean',
+      alias: 'h',
+      default: false,
+    },
   },
 };
 
