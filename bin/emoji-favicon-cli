@@ -3,6 +3,7 @@
 const fs = require('fs');
 const meow = require('meow');
 const engine = require('../src');
+const { EmojiError } = require('../src/util');
 
 /** @type {meow.Options} */
 const options = {
@@ -44,7 +45,9 @@ const cli = meow(
 );
 
 const panic = (error) => {
-  console.error(error);
+  console.error(
+    error instanceof EmojiError ? `Error: ${error.message}` : error,
+  );
   // eslint-disable-next-line no-process-exit
   process.exit(2);
 };
@@ -57,15 +60,15 @@ if (hasUnknownFlag) {
   const firstUnknownFlag = Object.keys(cli.flags).find(
     (flag) => !Object.keys(options.flags).includes(flag),
   );
-  panic(new Error(`Unknown option '${firstUnknownFlag}'.`));
+  panic(new EmojiError(`Unknown option '${firstUnknownFlag}'.`));
 }
 
 if (cli.input.length > 1) {
-  panic(new Error('Too many arguments.'));
+  panic(new EmojiError('Too many arguments.'));
 }
 
 if (!engine.vendors.includes(/** @type{string} */ (cli.flags.vendor))) {
-  panic(new Error(`Invalid vendor '${cli.flags.vendor}'.`));
+  panic(new EmojiError(`Invalid vendor '${cli.flags.vendor}'.`));
 }
 
 const getInput = async () =>

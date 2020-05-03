@@ -2,6 +2,13 @@ const emojis = require('emojilib');
 const fetch = require('node-fetch').default;
 const { Ico, IcoImage } = require('@fiahfy/ico');
 
+class EmojiError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'EmojiError';
+  }
+}
+
 const convertToIco = (buf) => {
   const ico = new Ico();
   Ico.supportedIconSizes.push(72);
@@ -25,17 +32,27 @@ const getBuffer = (res) => res.buffer();
 
 const getJson = (res) => res.json();
 
+const validateUrl = async (url) => {
+  if (url === undefined) throw new EmojiError('Emoji not found');
+  return url;
+};
+
 const validateResponse = (res) => {
-  if (res.status !== 200) throw new Error('Emoji not found');
+  if (res.status !== 200) throw new EmojiError('Emoji not found');
   return res;
 };
 
 const fetchJson = (url) => fetch(url).then(getJson);
 
 const fetchAndConvert = async (url) =>
-  fetch(url).then(validateResponse).then(getBuffer).then(convertToIco);
+  validateUrl(url)
+    .then(fetch)
+    .then(validateResponse)
+    .then(getBuffer)
+    .then(convertToIco);
 
 module.exports = {
+  EmojiError,
   charForEmoji,
   unicodeFilenameForEmoji,
   fetchJson,
