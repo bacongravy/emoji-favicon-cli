@@ -9,7 +9,7 @@ This package does not include its own emoji images. Multiple image providers are
 - `emojiii`: [project](https://github.com/bruceCzK/Emojiii/), [cheatsheet](http://unicode.org/emoji/charts/full-emoji-list.html)
 - `github`: [api](https://developer.github.com/v3/emojis/), [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
 - `iamcal`: [project](https://github.com/iamcal/emoji-data), [cheatsheet](http://unicodey.com/emoji-data/table.htm)
-- `webfx`: [project](https://github.com/rumkin/emoji-img), [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
+- `webfx`: [project](https://github.com/WebpageFX/emoji-cheat-sheet.com), [cheatsheet](https://www.webfx.com/tools/emoji-cheat-sheet/)
 
 Interactive emoji browsing is provided by [`emojilib`](https://github.com/muan/emojilib). Not every provider has every emoji, and some providers have additional emojis not found in `emojilib`. Image asset hosting provided by the [JSDelivr](https://www.jsdelivr.com) CDN.
 
