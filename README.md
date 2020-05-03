@@ -6,7 +6,6 @@ A CLI tool to generate a `favicon.ico` file from an emoji name. Perfect for when
 
 This package does not include its own emoji images. Multiple image providers are supported:
 
-- `biezhi`: [project](https://github.com/biezhi/emojis)
 - `emojiii`: [project](https://github.com/bruceCzK/Emojiii/), [cheatsheet](http://unicode.org/emoji/charts/full-emoji-list.html)
 - `github`: [api](https://developer.github.com/v3/emojis/), [cheatsheet](https://github.com/ikatyang/emoji-cheat-sheet)
 - `iamcal`: [project](https://github.com/iamcal/emoji-data), [cheatsheet](http://unicodey.com/emoji-data/table.htm)
